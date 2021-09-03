@@ -4,13 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reseplanerare</title>
+    <title>SL-avgångar</title>
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script>
 </head>
 <body>
     <header>
-
+        <h1>SL-avgångar</h1>
     </header>
+
+    <main>
+        <input type="text" id="depInput" placeholder="Ange avgångshållplats">
+
+        <button onclick="getDepartures2()" id="searchBtn">Sök</button>
+
+        <h2 id="station"></h2>
+
+        <div id="resultDiv">
+            <ul id="resultList"></ul>
+        </div>
+    </main>
+
+    <footer></footer>
+    
 </body>
 </html>
