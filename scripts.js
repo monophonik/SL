@@ -1,7 +1,3 @@
-
-
-//let metroDep, busDep, trainDep, tramDep, shipDep;
-
 //let partialDepUrl = 'https://api.sl.se/api2/realtimedeparturesV4.json?key=f6d2a1fd4d7441d596c305f072497e8c&'
 let siteId;
 let stationName;
@@ -9,7 +5,7 @@ let timeWindow = '10';
 let metroShow, busShow, trainShow, tramShow, distance, searchInput;
 
 //const stationList = siteIdList.json;
-//console.log(stationList);
+
 const realTimeKey = 'f6d2a1fd4d7441d596c305f072497e8c';
 const searchSiteKey = '9a0e6f17b01c4f019cde70e0db5feed5'; 
 
@@ -31,8 +27,6 @@ function buildUrlSearch() {
 // Print
 
 function print3(dep) {
-
-    //const resultList = document.createElement('ul')
 
     let li = document.createElement('li'),
     spanLineNr = document.createElement('span'),
@@ -108,12 +102,10 @@ function getDepartures3() {
                 busUl.innerHTML = '';
             }
 
-            // let ul = document.createElement('ul');
-            // ul.setAttribute('id', 'resultList')
 
             //Funkar update???? Använda GetDepartures3 eller UpdateDep?
             resultDiv.setAttribute('onload', setInterval('UpdateDep2()', 30000))
-            //resultDiv.appendChild(ul)
+            
             let result = data.ResponseData;
             console.log(result);
 
@@ -204,7 +196,6 @@ async function handleForm() {
         console.log('station!!!')
         console.log(station);
         // let station = stationList.find(x => x.Name == searchInput);
-        // console.log(station);
 
         station.map(function (stat) {
             siteId = stat.SiteId;
@@ -236,9 +227,6 @@ async function handleForm() {
 
     }
 
-    // metroShow = document.getElementById("metroBox").getAttribute("checked");
-    // console.log(metroShow);
-     
     getDepartures3();
     
 }
