@@ -45,6 +45,10 @@ function print3(dep) {
     spanDest.innerHTML = dep.Destination;
     spanCount.innerHTML = dep.DisplayTime;
 
+    if(spanCount.innerHTML == 'Nu') {
+        spanCount.setAttribute("class", "now")
+    }
+
     //Behöver ordna med DateTimeNow för att räkna ut exakt hur lång tid det är kvar
     if(dep.DisplayTime != 'Nu') {
         
@@ -108,7 +112,7 @@ function getDepartures3() {
             // ul.setAttribute('id', 'resultList')
 
             //Funkar update???? Använda GetDepartures3 eller UpdateDep?
-            resultDiv.setAttribute('onload', setInterval('UpdateDep()', 30000))
+            resultDiv.setAttribute('onload', setInterval('UpdateDep2()', 30000))
             //resultDiv.appendChild(ul)
             let result = data.ResponseData;
             console.log(result);
@@ -252,54 +256,75 @@ async function getApiSearch(url) {
 }
 
 
-
-function updateDep() {
+function UpdateDep2() {
 
     fetch(buildUrlSiteID())
         .then((resp) => resp.json())
         .then(function (data) {
 
+            const metroUl = document.getElementById("metroUl");
+            const busUl = document.getElementById("busUl"); 
             const resultDiv = document.getElementById("resultDiv");
-            const metroDiv = document.getElementById("metroDiv");
-            const busDiv = document.getElementById("busDiv");
-            
-            if(resultDiv.hasChildNodes()) {
+            console.log(resultDiv);
 
-                let resultList = document.getElementById('resultList');
-                resultList.innerHTML = '';
-                let result = data.ResponseData;
-                console.log(result);
-
-                let metroDep = result.Metros;
-                console.log(metroDep);
-                let busDep = result.Buses;
-                console.log(busDep);
-                // let trainDep = data.ResponseData.Trains;
-                // let tramDep = data.ResponseData.Trams;
-                // let shipDep = data.ResponseData.Ships;
-        
-                if(metroDep.length != 0) {
-                    metroDep.map(function (dep) {
-                        
-                        resultDiv.appendChild(print3(dep));
-
-                    })
-                }
-                
-                if(busDep.length != 0) {
-                    busDep.map(function (dep) {
-
-                        resultDiv.appendChild(print3(dep));
-                        
-                    })
-                }
-                
+            if(metroUl.hasChildNodes) {
+                metroUl.innerHTML = '';
             }
 
+            if(busUl.hasChildNodes) {
+                busUl.innerHTML = '';
+            }
+
+            let result = data.ResponseData;
+            console.log(result);
+
+            let metroDep = result.Metros;
+            console.log(metroDep);
+            let busDep = result.Buses;
+            console.log(busDep);
+            // let trainDep = data.ResponseData.Trains;
+            // let tramDep = data.ResponseData.Trams;
+            // let shipDep = data.ResponseData.Ships;
+    
+            if(metroDep.length != 0 && metroShow === true) {
+                let metroBanner = document.getElementById('metroBanner');
+                metroBanner.innerHTML = `Tunnelbana från ${stationName}`;
+                metroBanner.removeAttribute('hidden');
+                
+                metroUl.appendChild(setLegend());
+                
+                metroDep.map(function (dep) {
+                    
+                    metroUl.appendChild(print3(dep));
+
+                })
+
+            }
+            else {
+                document.getElementById('metroBanner').setAttribute('hidden', 'true');
+            }
+            
+            if(busDep.length != 0 && busShow === true) {
+                let busBanner = document.getElementById('busBanner')
+                busBanner.innerHTML = `Buss från ${stationName}`;
+                busBanner.removeAttribute('hidden');
+
+                busUl.appendChild(setLegend());
+                    
+                busDep.map(function (dep) {
+                    
+                    busUl.appendChild(print3(dep));
+
+                })
+
+            }
+            else {
+                document.getElementById('busBanner').setAttribute('hidden', 'true');
+            }
+        
         
         })
 
-    
 }
 
 
@@ -464,4 +489,53 @@ function updateDist() {
 //     li.appendChild(spanCount);
 //     resultList.appendChild(li);
 //     return resultList;
+// }
+
+// function updateDep() {
+
+//     fetch(buildUrlSiteID())
+//         .then((resp) => resp.json())
+//         .then(function (data) {
+
+//             const resultDiv = document.getElementById("resultDiv");
+//             const metroDiv = document.getElementById("metroDiv");
+//             const busDiv = document.getElementById("busDiv");
+            
+//             if(resultDiv.hasChildNodes()) {
+
+//                 let resultList = document.getElementById('resultList');
+//                 resultList.innerHTML = '';
+//                 let result = data.ResponseData;
+//                 console.log(result);
+
+//                 let metroDep = result.Metros;
+//                 console.log(metroDep);
+//                 let busDep = result.Buses;
+//                 console.log(busDep);
+//                 // let trainDep = data.ResponseData.Trains;
+//                 // let tramDep = data.ResponseData.Trams;
+//                 // let shipDep = data.ResponseData.Ships;
+        
+//                 if(metroDep.length != 0) {
+//                     metroDep.map(function (dep) {
+                        
+//                         resultDiv.appendChild(print3(dep));
+
+//                     })
+//                 }
+                
+//                 if(busDep.length != 0) {
+//                     busDep.map(function (dep) {
+
+//                         resultDiv.appendChild(print3(dep));
+                        
+//                     })
+//                 }
+                
+//             }
+
+        
+//         })
+
+    
 // }
