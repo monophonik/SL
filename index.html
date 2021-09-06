@@ -14,15 +14,67 @@
     </header>
 
     <main>
-        <input type="text" id="depInput" placeholder="Ange avgångshållplats">
+        <!-- <input type="text" id="depInput" placeholder="Ange avgångshållplats"> -->
+        
+        <!-- <div id="inputDiv" action="">
+            <label for="metro">T-bana</label>
+            <input type="checkbox" name="metro" id="metroBox" checked>
+            <input type="checkbox" name="bus" id="busBox" checked>
+            <input type="checkbox" name="train" id="trainBox">
+            <input type="checkbox" name="tram" id="tramBox">
 
-        <button onclick="getDepartures2()" id="searchBtn">Sök</button>
+            <input type="range" name="walkingDist" id="dist" minlength="0" maxlength="60">
+        </div> -->
+        
+        <div id="formDiv">
+            <form id="inputForm" action="javascript:handleForm();">
 
-        <h2 id="station"></h2>
-
-        <div id="resultDiv">
-            <ul id="resultList"></ul>
+                <label for="metroBox">T-bana</label>
+                <input type="checkbox" name="metro" id="metroBox" value="metro" checked>
+                
+                <label for="busBox">Buss</label>
+                <input type="checkbox" name="bus" id="busBox" value="bus" checked>
+            
+                <label for="trainBox">Tåg</label>
+                <input type="checkbox" name="train" id="trainBox" value="train">
+                
+                <label for="tramBox">Spårvagn</label>
+                <input type="checkbox" name="tram" id="tramBox" value="tram">
+                <br>
+                <label for="dist">Gångavstånd</label>
+                <input type="range" name="walkingDist" id="dist" min="0" max="60" value="0" oninput="updateDist()">
+                <label for="dist" id="distMin">0</label>
+                <label for="dist">min</label>
+                <br>
+                <input type="search" id="depInput" placeholder="Ange avgångshållplats" results=5>
+                <input type="submit" name="searchBtn" id="searchBtn" value="Sök">
+    
+            </form>
         </div>
+        
+
+
+        <!-- <input type="search" id="depInput" placeholder="Ange avgångshållplats" results=5> -->
+
+        
+        <!-- Funkar setVariables? -->
+        <!-- <button onclick="getDepartures3(); setVariables()" id="searchBtn">Sök</button> -->
+
+        
+        <div id="resultContainer">
+
+            <div id="resultDiv">
+            
+                <div id="metroBanner" class="banner" hidden></div>
+                <ul id="metroUl"></ul>
+                <div id="busBanner" class="banner" hidden></div>
+                <ul id="busUl"></ul>
+    
+            </div>
+
+        </div>
+        
+        
     </main>
 
     <footer></footer>
